@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+  font-family: whitrabt;
+  font-style: normal;
+  font-display: swap;
+  src: url("./assets/whitrabt.woff");
+}
+
+#root {
+  font-family: whitrabt;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
