@@ -1,12 +1,14 @@
 import React from "react"
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useMutation } from "@tanstack/react-query"
+import { useNavigate } from "react-router-dom"
 
 type LoginProps = {
   setToken: (userToken: string) => void
 }
 
 const Login: React.FC<LoginProps> = ({ setToken }) => {
+  const navigate = useNavigate()
   const mutation = useMutation({
     mutationFn: (data) => {
       return fetch("http://127.0.0.1:5000/auth/login", {
@@ -20,8 +22,11 @@ const Login: React.FC<LoginProps> = ({ setToken }) => {
     onSuccess: async (data, variables, context) => {
       const _data = await data.json()
       setToken(_data.data.token)
+      navigate("/customers")
     },
   })
+
+
   type Inputs = {
     email: string
     password: string
@@ -50,12 +55,12 @@ const Login: React.FC<LoginProps> = ({ setToken }) => {
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="relative mt-6">
                 {errors.email && <p role="alert">{errors.email.message}</p>}
-                <input defaultValue="test" {...register("email")} type="email" name="email" id="email" className="peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none" autoComplete="NA" />
+                <input {...register("email")} type="email" name="email" id="email" className="peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none" autoComplete="NA" />
                 <label htmlFor="email" className="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Email Address</label>
               </div>
               <div className="relative mt-6">
                 {errors.password && <p role="alert">{errors.password.message}</p>}
-                <input defaultValue="test" {...register("password")} type="password" name="password" id="password" className="peer peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none" />
+                <input {...register("password")} type="password" name="password" id="password" className="peer peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none" />
                 <label htmlFor="password" className="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Password</label>
               </div>
               <div className="my-6">
@@ -70,10 +75,6 @@ const Login: React.FC<LoginProps> = ({ setToken }) => {
             </form>
           </div>
         </div>
-      </div>
-      <div className="fixed bottom-0 right-0 w-full z-[9999] p-2 text-center text-sm text-white bg-black">
-
-        &nbsp;<a className="text-gray-200 underline" href="https://tailwindflex.com/@simon-scheffer/sign-in-form-2?utm_source=fullscreen-preview&amp;utm_medium=footer"></a>
       </div>
 
     </>

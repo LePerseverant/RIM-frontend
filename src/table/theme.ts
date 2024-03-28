@@ -1,4 +1,4 @@
-import { createTheme, ThemeOptions, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeOptions } from '@mui/material/styles';
 import whitrabt from "../assets/whitrabt.woff"
 
 let theme: ThemeOptions = {
